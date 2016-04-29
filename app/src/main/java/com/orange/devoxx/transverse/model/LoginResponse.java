@@ -16,4 +16,12 @@ public class LoginResponse {
         mNick = nick;
         mEmail = email;
     }
+
+    public String getNick() {
+        return mNick;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
 }

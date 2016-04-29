@@ -9,6 +9,7 @@ public class ConnectedDataCommunication implements  DataCommunicationIntf{
 
     @Override
     public LoginResponse login(String password, String email) {
-        return null;
+        LoginResponse lr = new LoginResponse("xylome-test", "xylome@xylome.org" );
+        return lr;
     }
 }

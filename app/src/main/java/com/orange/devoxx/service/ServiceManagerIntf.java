@@ -1,5 +1,8 @@
 package com.orange.devoxx.service;
 
+import com.orange.devoxx.service.login.LoginService;
+import com.orange.devoxx.service.login.LoginServiceIntf;
+
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -7,5 +10,7 @@ import java.util.concurrent.ExecutorService;
  */
 public interface ServiceManagerIntf {
     public ExecutorService getCancelableThreadsExecutor() ;
+
+    public LoginServiceIntf getLoginService() ;
 
 }

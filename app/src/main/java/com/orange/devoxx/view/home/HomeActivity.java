@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.orange.devoxx.R;
 import com.orange.devoxx.event.GroupResultEvent;
+import com.orange.devoxx.event.LoginResponseEvent;
 import com.orange.devoxx.event.NewActivityEvent;
 import com.orange.devoxx.view.BaseActivity;
 
@@ -52,6 +53,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         Log.d(TAG, "setting mHello");
     }
 
+    @Override
+    public void displayNick(String nick) {
+        mHello.setText("hello " + nick);
+    }
+
     private void setupMembers() {
         mHello.setText("Yes, it's hello world time !");
     }
@@ -67,7 +73,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onButtonClicked("Badam Bim ?");
+                presenter.login("xylome", "bar tabas");
             }
         });
     }
@@ -95,9 +101,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         Log.d(TAG, "Received Message from bus:" + activityEvent.getContentDescription());
     }
 
-    @Subscribe
-    public void receivedGroup(GroupResultEvent event) {
-        Log.d(TAG, "Received a group:" + event.getGroup());
+
+    public void receivedGroup(LoginResponseEvent event) {
+        Log.d(TAG, "Received a group:" + event.getLoginResponse().getNick());
     }
 
     @Override

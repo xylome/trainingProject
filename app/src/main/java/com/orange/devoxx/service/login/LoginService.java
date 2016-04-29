@@ -3,14 +3,17 @@ package com.orange.devoxx.service.login;
 import android.util.Log;
 
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.event.LoginResponseEvent;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.MotherService;
 import com.orange.devoxx.transverse.model.LoginResponse;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by xylome on 28/04/2016.
  */
-public class LoginService extends MotherService {
+public class LoginService extends MotherService implements LoginServiceIntf{
 
     private LoginResponse mLoginResponse;
 
@@ -27,6 +30,11 @@ public class LoginService extends MotherService {
         mLoginResponse = Injector.getDataCommunication().login(login, password);
 
         // il faut poster la réponse.
+        postLoginResponse();
+    }
+
+    private void postLoginResponse() {
+        EventBus.getDefault().post(new LoginResponseEvent(mLoginResponse));
     }
 
     private class DownloadRunnable implements Runnable {
@@ -43,5 +51,7 @@ public class LoginService extends MotherService {
             loginSync(mLogin, mPassword);
         }
     }
+
+
 
 }

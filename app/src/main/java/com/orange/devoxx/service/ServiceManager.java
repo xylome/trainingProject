@@ -2,6 +2,7 @@ package com.orange.devoxx.service;
 
 import com.orange.devoxx.MyApplication;
 import com.orange.devoxx.service.login.LoginService;
+import com.orange.devoxx.service.login.LoginServiceIntf;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,11 +15,18 @@ public class ServiceManager implements ServiceManagerIntf {
 
     private ExecutorService cancelableThreadsExecutor = null;
 
-    private LoginService loginService;
-
+    private LoginServiceIntf loginService;
 
     public  ServiceManager(MyApplication myApp) {
 
+    }
+
+
+    public final LoginServiceIntf getLoginService() {
+        if (null == loginService) {
+            loginService = new LoginService();
+        }
+        return loginService;
     }
 
     /**

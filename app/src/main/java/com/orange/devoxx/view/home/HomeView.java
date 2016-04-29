@@ -8,4 +8,6 @@ public interface HomeView {
     void updateFabButton(boolean isSelected, boolean animate);
 
     void displayLog(String foo);
+
+    void displayNick(String nick);
 }
