@@ -1,14 +1,16 @@
 package com.orange.devoxx.service.login;
 
-import android.util.Log;
-
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.com.backend.beans.LoginResponse;
+import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.event.LoginResponseEvent;
+import com.orange.devoxx.event.LogoutResponseEvent;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.MotherService;
-import com.orange.devoxx.transverse.model.LoginResponse;
 
 import org.greenrobot.eventbus.EventBus;
+
+import hugo.weaving.DebugLog;
 
 /**
  * Created by xylome on 28/04/2016.
@@ -21,27 +23,62 @@ public class LoginService extends MotherService implements LoginServiceIntf{
         return false;
     }
 
-
+    @DebugLog
     public void loginAsync(String login, String password) {
-        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadRunnable(login, password));
+        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new LoginRunnable(login, password));
     }
 
+    @Override
+    public void logoutAsync() {
+        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new LogoutRunnable());
+    }
+
+    @DebugLog
     public void loginSync(String login, String password) {
         mLoginResponse = Injector.getDataCommunication().login(login, password);
-
-        // il faut poster la réponse.
+        saveLoginResponse();
         postLoginResponse();
     }
 
+    @DebugLog
+    private void saveLoginResponse() {
+        DataManager dm = DataManager.getInstance(MyApplication.instance.getApplicationContext());
+        dm.writeAccountId(mLoginResponse.getAccountId());
+        dm.writeActorId(mLoginResponse.getActorId());
+        dm.writeCookie(mLoginResponse.getAuthCookie());
+        dm.writeEmail(mLoginResponse.getEmail());
+        dm.writeNick(mLoginResponse.getNick());
+        dm.writeLogged(true);
+        dm = null;
+    }
+
+    @DebugLog
+    private void logoutSync() {
+        DataManager dm = DataManager.getInstance(MyApplication.instance.getApplicationContext());
+        dm.writeAccountId(null);
+        dm.writeActorId(null);
+        dm.writeCookie(null);
+        //dm.writeEmail(null);
+        dm.writeNick(null);
+        dm.writeLogged(false);
+        dm = null;
+        postLogoutResponse();
+    }
+
+    @DebugLog
     private void postLoginResponse() {
         EventBus.getDefault().post(new LoginResponseEvent(mLoginResponse));
     }
 
-    private class DownloadRunnable implements Runnable {
+    private void postLogoutResponse() {
+        EventBus.getDefault().post(new LogoutResponseEvent());
+    }
+
+    private class LoginRunnable implements Runnable {
         String mLogin;
         String mPassword;
 
-        public DownloadRunnable(String login, String password) {
+        public LoginRunnable(String login, String password) {
             mLogin = login;
             mPassword = password;
         }
@@ -52,6 +89,16 @@ public class LoginService extends MotherService implements LoginServiceIntf{
         }
     }
 
+    private class LogoutRunnable implements Runnable {
 
+        public LogoutRunnable() {
+
+        }
+
+        @Override
+        public void run() {
+            logoutSync();
+        }
+    }
 
 }

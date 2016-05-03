@@ -1,5 +1,7 @@
 package com.orange.devoxx.view.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,15 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.orange.devoxx.R;
-import com.orange.devoxx.event.GroupResultEvent;
-import com.orange.devoxx.event.LoginResponseEvent;
-import com.orange.devoxx.event.NewActivityEvent;
+import com.orange.devoxx.data.DataManager;
+import com.orange.devoxx.event.LogoutResponseEvent;
 import com.orange.devoxx.view.BaseActivity;
+import com.orange.devoxx.view.login.LoginActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class HomeActivity extends BaseActivity<HomePresenter> implements HomeView {
     private final String TAG = "HomeActivity";
@@ -45,13 +49,24 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         setupMembers();
         setupToolbar();
         setupFab();
+        loginIfNeeded();
 
        }
+
+    @DebugLog
+    private void loginIfNeeded() {
+        Log.d(TAG, "logged ? : " + DataManager.getInstance(getApplicationContext()).getLogged());
+        if(!DataManager.getInstance(getApplicationContext()).getLogged()) {
+            startActivity(LoginActivity.getIntent(this));
+            finish();
+        }
+    }
 
     public void displayLog(String foo) {
         mHello.setText(foo);
         Log.d(TAG, "setting mHello");
     }
+
 
     @Override
     public void displayNick(String nick) {
@@ -73,7 +88,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.login("xylome", "bar tabas");
+                //presenter.login("xavier@chacunsapart.com", "64516451");
             }
         });
     }
@@ -82,7 +97,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
-
 
 
     private void setupFab() {
@@ -97,13 +111,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     }
 
     @Subscribe
-    public void receivedMessage(NewActivityEvent activityEvent) {
-        Log.d(TAG, "Received Message from bus:" + activityEvent.getContentDescription());
-    }
-
-
-    public void receivedGroup(LoginResponseEvent event) {
-        Log.d(TAG, "Received a group:" + event.getLoginResponse().getNick());
+    public void fooSub(Object o) {
+        Log.d(TAG, "received an object from bus…");
     }
 
     @Override
@@ -122,7 +131,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            presenter.logout();
         }
 
         return super.onOptionsItemSelected(item);
@@ -131,5 +140,19 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     @Override
     public void updateFabButton(boolean isSelected, boolean animate) {
 
+
+    }
+
+    @Override
+    public void backToLogin() {
+        startActivity(LoginActivity.getIntent(this));
+        finish();
+    }
+
+
+    public static Intent getIntent(Context c) {
+        Intent i =  new Intent(c, HomeActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return i;
     }
 }

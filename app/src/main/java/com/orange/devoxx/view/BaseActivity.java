@@ -26,14 +26,14 @@ public abstract class BaseActivity<P extends BaseActivityPresenter> extends AppC
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
         MyApplication.instance.activityStarted();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        //EventBus.getDefault().unregister(this);
         MyApplication.instance.activityStopped();
     }
 

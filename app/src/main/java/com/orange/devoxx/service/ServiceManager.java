@@ -1,5 +1,7 @@
 package com.orange.devoxx.service;
 
+import android.util.Log;
+
 import com.orange.devoxx.MyApplication;
 import com.orange.devoxx.service.login.LoginService;
 import com.orange.devoxx.service.login.LoginServiceIntf;
@@ -13,6 +15,7 @@ import java.util.concurrent.ThreadFactory;
  */
 public class ServiceManager implements ServiceManagerIntf {
 
+    private static final String TAG = "ServiceManager";
     private ExecutorService cancelableThreadsExecutor = null;
 
     private LoginServiceIntf loginService;
@@ -21,9 +24,9 @@ public class ServiceManager implements ServiceManagerIntf {
 
     }
 
-
     public final LoginServiceIntf getLoginService() {
         if (null == loginService) {
+            Log.d(TAG, "serving a new LoginService");
             loginService = new LoginService();
         }
         return loginService;

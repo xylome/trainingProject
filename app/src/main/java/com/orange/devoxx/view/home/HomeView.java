@@ -9,5 +9,7 @@ public interface HomeView {
 
     void displayLog(String foo);
 
+    void backToLogin();
+
     void displayNick(String nick);
 }

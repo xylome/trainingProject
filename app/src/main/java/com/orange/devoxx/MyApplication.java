@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
+import com.orange.devoxx.dao.DaoManagerIntf;
 import com.orange.devoxx.event.GroupResultEvent;
 import com.orange.devoxx.event.NewActivityEvent;
 import com.orange.devoxx.injector.Injector;
@@ -26,6 +27,7 @@ public class MyApplication extends Application {
     private Object mUserInfos;
 
     private ServiceManagerIntf mServiceManagerIntf;
+    private DaoManagerIntf mDaoManagerIntf;
 
     // Vysor for android display
 
@@ -44,6 +46,13 @@ public class MyApplication extends Application {
             mServiceManagerIntf = Injector.getServiceManager(this);
         }
         return mServiceManagerIntf;
+    }
+
+    public final DaoManagerIntf getDaoManager() {
+        if (null == mDaoManagerIntf) {
+            mDaoManagerIntf = Injector.getDaoManager();
+        }
+        return mDaoManagerIntf;
     }
 
 

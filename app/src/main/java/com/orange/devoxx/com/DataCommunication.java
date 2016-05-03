@@ -1,7 +1,9 @@
 package com.orange.devoxx.com;
 
 import com.orange.devoxx.MyApplication;
-import com.orange.devoxx.transverse.model.LoginResponse;
+import com.orange.devoxx.com.backend.beans.LoginResponse;
+
+import hugo.weaving.DebugLog;
 
 /**
  * Created by xylome on 28/04/2016.
@@ -12,6 +14,7 @@ public class DataCommunication implements DataCommunicationIntf {
 
     private static DataCommunication mInstance;
 
+    @DebugLog
     private DataCommunication() {
         if (MyApplication.instance.isConnected()) {
             mCommunication = new ConnectedDataCommunication();
@@ -27,8 +30,9 @@ public class DataCommunication implements DataCommunicationIntf {
         return mInstance;
     }
 
+    @DebugLog
     @Override
-    public LoginResponse login(String password, String email) {
+    public LoginResponse login(String email, String password) {
         return mCommunication.login(email, password);
     }
 }
