@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.orange.devoxx.dao.DaoManagerIntf;
-import com.orange.devoxx.event.GroupResultEvent;
+
 import com.orange.devoxx.event.NewActivityEvent;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.ServiceManager;
@@ -83,8 +83,6 @@ public class MyApplication extends Application {
         myRunnable = new Runnable() {
             @Override
             public void run() {
-                EventBus.getDefault().post(new NewActivityEvent("New activity !! "));
-                EventBus.getDefault().post(new GroupResultEvent("Bar bar"));
                 if (mNbActivityAlive.get() == 0) {
                     Log.d(TAG, "kill everyone");
                 } else {

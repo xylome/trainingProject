@@ -1,15 +1,11 @@
 package com.orange.devoxx.view.login;
 
-import android.util.Log;
-
 import com.orange.devoxx.MyApplication;
-import com.orange.devoxx.event.GroupResultEvent;
 import com.orange.devoxx.event.LoginResponseEvent;
 import com.orange.devoxx.view.BaseActivityPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import hugo.weaving.DebugLog;
 
@@ -22,8 +18,18 @@ public class LoginPresenter extends BaseActivityPresenter<LoginView> {
 
     protected LoginPresenter(LoginView view) {
         super(view);
-        EventBus.getDefault().register(this);
+    }
 
+    @DebugLog
+    @Override
+    public void unsubscribe() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    @DebugLog
+    @Override
+    public void subscrible() {
+        EventBus.getDefault().register(this);
     }
 
     protected void login(String login, String password) {
@@ -31,9 +37,8 @@ public class LoginPresenter extends BaseActivityPresenter<LoginView> {
     }
 
     @DebugLog
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe
     public void loginReceived(LoginResponseEvent lre) {
-        //Log.d(TAG, "received");
         if (null != lre.getLoginResponse()) {
             view.loginOk();
         }

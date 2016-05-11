@@ -25,20 +25,28 @@ public class HomePresenter extends BaseActivityPresenter<HomeView> {
 
     private static final String TAG = "HomePresenter" ;
 
+    @DebugLog
     protected HomePresenter(HomeView view) {
         super(view);
-        EventBus.getDefault().register(this);
     }
 
-    public void onButtonClicked(String foo) {
-        String enriched = "enriched from presenter + " + foo;
-        view.displayLog(enriched);
+    @DebugLog
+    @Override
+    public void unsubscribe() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    @DebugLog
+    @Override
+    public void subscrible() {
+        EventBus.getDefault().register(this);
     }
 
     public void logout() {
         MyApplication.instance.getServiceManager().getLoginService().logoutAsync();
     }
 
+    @DebugLog
     @Subscribe
     public void onLogoutReceived(LogoutResponseEvent lre) {
         view.backToLogin();

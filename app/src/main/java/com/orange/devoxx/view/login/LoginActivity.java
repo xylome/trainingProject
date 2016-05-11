@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             showProgress(true);
             //loggin !
             presenter.login(email, password);
-            finish();
+            //finish();
         }
     }
 
@@ -197,7 +197,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     public static Intent getIntent(Context c) {
         Intent i =  new Intent(c, LoginActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return i;
     }
 

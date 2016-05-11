@@ -5,6 +5,5 @@ package com.orange.devoxx.service.login;
  */
 public interface LoginServiceIntf {
     public void loginAsync(String login, String password);
-
     public void logoutAsync();
 }

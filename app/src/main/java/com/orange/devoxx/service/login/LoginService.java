@@ -90,11 +90,8 @@ public class LoginService extends MotherService implements LoginServiceIntf{
     }
 
     private class LogoutRunnable implements Runnable {
-
         public LogoutRunnable() {
-
         }
-
         @Override
         public void run() {
             logoutSync();

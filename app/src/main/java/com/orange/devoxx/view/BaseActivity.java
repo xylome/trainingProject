@@ -9,6 +9,8 @@ import com.orange.devoxx.MyApplication;
 
 import org.greenrobot.eventbus.EventBus;
 
+import hugo.weaving.DebugLog;
+
 /**
  * Created by xylome on 25/04/2016.
  */
@@ -26,21 +28,33 @@ public abstract class BaseActivity<P extends BaseActivityPresenter> extends AppC
     @Override
     protected void onStart() {
         super.onStart();
-        //EventBus.getDefault().register(this);
         MyApplication.instance.activityStarted();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        //EventBus.getDefault().unregister(this);
-        MyApplication.instance.activityStopped();
+    protected void onResume() {
+        super.onResume();
+        presenter.subscrible();
     }
 
+    @DebugLog
+    @Override
+    protected void onPause() {
+        presenter.unsubscribe();
+        super.onPause();
+
+    }
+
+    @DebugLog
+    @Override
+    protected void onStop() {
+        MyApplication.instance.activityStopped();
+        super.onStop();
+    }
+
+    @DebugLog
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        Log.d("BaseActivity", "On backpressed");
         super.onBackPressed();
     }
 }
