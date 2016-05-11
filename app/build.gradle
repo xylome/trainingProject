@@ -20,6 +20,16 @@ android {
         }
 
     }
+
+    productFlavors {
+        functionnal {
+
+        }
+        mock {
+            applicationIdSuffix = ".mock"
+        }
+    }
+
 }
 
 dependencies {
