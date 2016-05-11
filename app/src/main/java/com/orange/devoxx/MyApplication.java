@@ -7,13 +7,9 @@ import android.util.Log;
 
 import com.orange.devoxx.dao.DaoManagerIntf;
 
-import com.orange.devoxx.event.NewActivityEvent;
 import com.orange.devoxx.injector.Injector;
-import com.orange.devoxx.service.ServiceManager;
 import com.orange.devoxx.service.ServiceManagerIntf;
 import com.orange.devoxx.view.login.LoginActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
