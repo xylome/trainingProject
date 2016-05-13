@@ -55,7 +55,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     private void loginIfNeeded() {
         if(!DataManager.getInstance(getApplicationContext()).getLogged()) {
            backToLogin();
+        } else {
+            fillInfos();
         }
+    }
+
+    @DebugLog
+    private void fillInfos() {
+        mHello.setText(DataManager.getInstance(getApplicationContext()).getNick());
     }
 
     private void setupMembers() {
