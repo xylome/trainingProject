@@ -1,6 +1,7 @@
 package com.orange.devoxx.com;
 
 
+import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.com.backend.beans.LoginResponse;
 
 /**
@@ -9,4 +10,5 @@ import com.orange.devoxx.com.backend.beans.LoginResponse;
 public interface DataCommunicationIntf {
 
     public LoginResponse login(String password, String email);
+    public GroupResponse myGroups();
 }

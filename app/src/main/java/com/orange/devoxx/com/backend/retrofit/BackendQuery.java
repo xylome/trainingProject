@@ -14,4 +14,9 @@ public class BackendQuery {
         return gson.toJson(new LoginQuery(login, password));
     }
 
+    public static String myGroups(int account_id) {
+        Gson gson = new Gson();
+        return gson.toJson(new MyGroupsQuery(account_id));
+    }
+
 }

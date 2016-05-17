@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.orange.devoxx.R;
+import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.view.BaseActivity;
 import com.orange.devoxx.view.login.LoginActivity;
@@ -63,6 +64,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     @DebugLog
     private void fillInfos() {
         mHello.setText(DataManager.getInstance(getApplicationContext()).getNick());
+        presenter.myGroups();
+
     }
 
     private void setupMembers() {
@@ -118,6 +121,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     @Override
     public void displayNick(String nick) {
         mHello.setText(nick);
+    }
+
+    @Override
+    public void groupsUpated(GroupResponse gr) {
+        Log.d(TAG, "Received " + gr.count() + " groups");
     }
 
 

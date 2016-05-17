@@ -1,6 +1,7 @@
 package com.orange.devoxx.com;
 
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.com.backend.beans.LoginResponse;
 
 import hugo.weaving.DebugLog;
@@ -34,5 +35,10 @@ public class DataCommunication implements DataCommunicationIntf {
     @Override
     public LoginResponse login(String email, String password) {
         return mCommunication.login(email, password);
+    }
+
+    @Override
+    public GroupResponse myGroups() {
+        return mCommunication.myGroups();
     }
 }

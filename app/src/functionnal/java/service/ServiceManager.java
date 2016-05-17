@@ -3,6 +3,8 @@ package com.orange.devoxx.service;
 import android.util.Log;
 
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.service.group.GroupService;
+import com.orange.devoxx.service.group.GroupServiceIntf;
 import com.orange.devoxx.service.login.LoginService;
 import com.orange.devoxx.service.login.LoginServiceIntf;
 
@@ -19,6 +21,7 @@ public class ServiceManager implements ServiceManagerIntf {
     private ExecutorService cancelableThreadsExecutor = null;
 
     private LoginServiceIntf loginService;
+    private GroupServiceIntf groupService;
 
     public  ServiceManager(MyApplication myApp) {
 
@@ -30,6 +33,14 @@ public class ServiceManager implements ServiceManagerIntf {
             loginService = new LoginService();
         }
         return loginService;
+    }
+
+    public final GroupServiceIntf getGroupService() {
+        if (null == groupService) {
+            Log.d(TAG, "serving a new GroupService");
+            groupService = new GroupService();
+        }
+        return groupService;
     }
 
     /**

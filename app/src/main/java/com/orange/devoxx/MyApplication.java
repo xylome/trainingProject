@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.orange.devoxx.dao.DaoManagerIntf;
 
+import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.ServiceManagerIntf;
 import com.orange.devoxx.view.login.LoginActivity;
@@ -51,19 +52,14 @@ public class MyApplication extends Application {
         return mDaoManagerIntf;
     }
 
+    public final DataManager getDataManager() {
+        return DataManager.getInstance(instance.getApplicationContext());
+    }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         Log.d(TAG, "Application terminated");
-    }
-
-    synchronized public int getFoo() {
-        return 42;
-    }
-
-    synchronized public void requestNick(Context c) {
-        startActivity(LoginActivity.getIntent(c));
     }
 
     public void activityStarted() {
@@ -90,10 +86,6 @@ public class MyApplication extends Application {
 
     private void stopEverything() {
         myHandler.postDelayed(myRunnable, 5000);
-    }
-
-    synchronized public Object getUserInfos() {
-        return mUserInfos;
     }
 
     public void activityStopped() {

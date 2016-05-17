@@ -7,7 +7,6 @@ import com.orange.devoxx.event.LoginResponseEvent;
 import com.orange.devoxx.event.LogoutResponseEvent;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.MotherService;
-
 import org.greenrobot.eventbus.EventBus;
 
 import hugo.weaving.DebugLog;

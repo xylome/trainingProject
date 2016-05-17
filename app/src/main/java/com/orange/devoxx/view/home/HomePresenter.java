@@ -1,6 +1,7 @@
 package com.orange.devoxx.view.home;
 
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.event.LogoutResponseEvent;
 import com.orange.devoxx.view.BaseActivityPresenter;
 
@@ -36,6 +37,16 @@ public class HomePresenter extends BaseActivityPresenter<HomeView> {
 
     public void logout() {
         MyApplication.instance.getServiceManager().getLoginService().logoutAsync();
+    }
+
+    public void myGroups() {
+        MyApplication.instance.getServiceManager().getGroupService().getGroupsAsync();
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onMyGroups(GroupResponse gr) {
+        view.groupsUpated(gr);
     }
 
     @DebugLog
