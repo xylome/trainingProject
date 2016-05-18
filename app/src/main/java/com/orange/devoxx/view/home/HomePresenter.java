@@ -7,6 +7,7 @@ import com.orange.devoxx.view.BaseActivityPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import hugo.weaving.DebugLog;
 
@@ -44,7 +45,7 @@ public class HomePresenter extends BaseActivityPresenter<HomeView> {
     }
 
     @DebugLog
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMyGroups(GroupResponse gr) {
         view.groupsUpated(gr);
     }

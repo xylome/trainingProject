@@ -3,8 +3,12 @@ package com.orange.devoxx.view.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.orange.devoxx.R;
+import com.orange.devoxx.com.backend.beans.Group;
 import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.view.BaseActivity;
@@ -21,6 +26,8 @@ import com.orange.devoxx.view.login.LoginActivity;
 
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,9 +39,15 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     private String mFoo;
     private String mNick;
     private Object mUserInfos;
+    private RecyclerView.Adapter mGroupsRecyclerAdapter;
+    private RecyclerView.LayoutManager mGroupsRecyclerLayoutManager;
+    private ArrayList<Group> mGroups;
+    Handler mainThread = new Handler(Looper.getMainLooper());
 
     @Bind(R.id.home_hello) TextView mHello;
     @Bind(R.id.home_button) Button mButton;
+    @Bind(R.id.home_recycler) RecyclerView mGroupsRecycler;
+
 
     @Override
     protected HomePresenter newPresenter() {
@@ -68,8 +81,18 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
 
     }
 
+    private void setUpRecyclerAdapter() {
+        if (mGroups != null) {
+            mGroupsRecyclerAdapter = new HomeAdapter(mGroups);
+            mGroupsRecycler.setAdapter(mGroupsRecyclerAdapter);
+        }
+    }
+
     private void setupMembers() {
         mHello.setText("Yes, it's hello world time !");
+        mGroupsRecycler.setHasFixedSize(false);
+        mGroupsRecyclerLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mGroupsRecycler.setLayoutManager(mGroupsRecyclerLayoutManager);
     }
 
     @Override
@@ -126,6 +149,21 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     @Override
     public void groupsUpated(GroupResponse gr) {
         Log.d(TAG, "Received " + gr.count() + " groups");
+        if (gr != null && gr.count() > 0) {
+            mGroups = gr.getGroups();
+            /**
+            mainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    setUpRecyclerAdapter();
+                }
+            });
+             */
+            setUpRecyclerAdapter();
+
+        } else {
+            Log.e(TAG, "GR is null or count is equals to 0");
+        }
     }
 
 

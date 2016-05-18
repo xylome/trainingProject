@@ -11,8 +11,11 @@ public class GroupResponse {
     @SerializedName("data")
     private ArrayList<Group> mGroups;
 
-
     public int count() {
         return mGroups.size();
+    }
+
+    public ArrayList<Group> getGroups() {
+        return mGroups;
     }
 }

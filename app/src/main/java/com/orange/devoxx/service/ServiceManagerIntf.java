@@ -11,8 +11,6 @@ import java.util.concurrent.ExecutorService;
  */
 public interface ServiceManagerIntf {
     public ExecutorService getCancelableThreadsExecutor() ;
-
     public LoginServiceIntf getLoginService() ;
     public GroupServiceIntf getGroupService();
-
 }
