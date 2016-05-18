@@ -3,6 +3,9 @@ package com.orange.devoxx.service;
 import android.util.Log;
 
 import com.orange.devoxx.MyApplication;
+import com.orange.devoxx.service.group.GroupService;
+import com.orange.devoxx.service.group.GroupServiceIntf;
+import com.orange.devoxx.service.group.MockGroupService;
 import com.orange.devoxx.service.login.LoginService;
 import com.orange.devoxx.service.login.LoginServiceIntf;
 import com.orange.devoxx.service.login.MockLoginService;
@@ -10,6 +13,8 @@ import com.orange.devoxx.service.login.MockLoginService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+
+import hugo.weaving.DebugLog;
 
 /**
  * Created by xylome on 28/04/2016.
@@ -20,17 +25,27 @@ public class ServiceManager implements ServiceManagerIntf {
     private ExecutorService cancelableThreadsExecutor = null;
 
     private LoginServiceIntf loginService;
+    private GroupServiceIntf groupService;
 
+    @DebugLog
     public  ServiceManager(MyApplication myApp) {
 
     }
 
     public final LoginServiceIntf getLoginService() {
         if (null == loginService) {
-            Log.d(TAG, "serving a new LoginService");
+            Log.d(TAG, "serving a new MockLoginService");
             loginService = new MockLoginService();
         }
         return loginService;
+    }
+
+    public final GroupServiceIntf getGroupService() {
+        if (null == groupService) {
+            Log.d(TAG, "serving a new ----- MockGroupService");
+            groupService = new MockGroupService();
+        }
+        return groupService;
     }
 
     /**

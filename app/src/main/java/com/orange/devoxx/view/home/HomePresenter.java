@@ -40,6 +40,7 @@ public class HomePresenter extends BaseActivityPresenter<HomeView> {
         MyApplication.instance.getServiceManager().getLoginService().logoutAsync();
     }
 
+    @DebugLog
     public void myGroups() {
         MyApplication.instance.getServiceManager().getGroupService().getGroupsAsync();
     }
