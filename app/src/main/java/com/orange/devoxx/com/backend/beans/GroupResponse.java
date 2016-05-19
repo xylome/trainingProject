@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
+
 /**
  * Created by xylome on 17/05/2016.
  */
@@ -12,7 +14,7 @@ public class GroupResponse {
     private ArrayList<Group> mGroups;
 
     public GroupResponse() {
-
+        mGroups = new ArrayList<>();
     }
 
     public int count() {
