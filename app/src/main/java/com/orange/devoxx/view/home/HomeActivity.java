@@ -44,8 +44,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     private ArrayList<Group> mGroups;
     Handler mainThread = new Handler(Looper.getMainLooper());
 
-    @Bind(R.id.home_hello) TextView mHello;
-    @Bind(R.id.home_button) Button mButton;
+
     @Bind(R.id.home_recycler) RecyclerView mGroupsRecycler;
 
 
@@ -76,7 +75,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
 
     @DebugLog
     private void fillInfos() {
-        mHello.setText(DataManager.getInstance(getApplicationContext()).getNick());
         presenter.myGroups();
 
     }
@@ -89,7 +87,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     }
 
     private void setupMembers() {
-        mHello.setText("Yes, it's hello world time !");
         mGroupsRecycler.setHasFixedSize(false);
         mGroupsRecyclerLayoutManager = new LinearLayoutManager(getApplicationContext());
         mGroupsRecycler.setLayoutManager(mGroupsRecyclerLayoutManager);
@@ -103,6 +100,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
 
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.my_groups);
         setSupportActionBar(toolbar);
     }
 
@@ -139,11 +137,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
         startActivity(LoginActivity.getIntent(this));
         finish();
         return;
-    }
-
-    @Override
-    public void displayNick(String nick) {
-        mHello.setText(nick);
     }
 
     @Override

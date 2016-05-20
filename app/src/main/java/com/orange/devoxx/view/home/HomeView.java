@@ -7,6 +7,5 @@ import com.orange.devoxx.com.backend.beans.GroupResponse;
  */
 public interface HomeView {
     void backToLogin();
-    void displayNick(String nick);
     void groupsUpated(GroupResponse gr);
 }
