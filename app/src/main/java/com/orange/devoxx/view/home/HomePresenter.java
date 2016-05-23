@@ -1,7 +1,11 @@
 package com.orange.devoxx.view.home;
 
+import android.util.Log;
+
 import com.orange.devoxx.MyApplication;
 import com.orange.devoxx.com.backend.beans.GroupResponse;
+import com.orange.devoxx.dao.DaoManager;
+import com.orange.devoxx.dao.group.GroupDaoIntf;
 import com.orange.devoxx.event.LogoutResponseEvent;
 import com.orange.devoxx.view.BaseActivityPresenter;
 

@@ -1,33 +1,36 @@
-package com.orange.devoxx.com.backend.beans;
+package com.orange.devoxx.dao.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 /**
  * Created by xylome on 17/05/2016.
  */
-public class Group {
-    @SerializedName("group_id")
+public class GroupModel extends RealmObject {
+    @PrimaryKey
+
     private int mId;
 
-    @SerializedName("group_name")
+
     private String mName;
 
-    @SerializedName("group_fraction")
+
     private int mFraction;
 
-    @SerializedName("creator_id")
+
     private int mCreatorId;
 
-    @SerializedName("creator_nick")
+
     private String mCreatorNick;
 
     public int getId() {
         return mId;
     }
 
-    public Group setId(int mId) {
+    public GroupModel setId(int mId) {
         this.mId = mId;
         return this;
     }
@@ -36,7 +39,7 @@ public class Group {
         return mName;
     }
 
-    public Group setName(String mName) {
+    public GroupModel setName(String mName) {
         this.mName = mName;
         return this;
     }
@@ -45,7 +48,7 @@ public class Group {
         return mFraction;
     }
 
-    public Group setFraction(int mFraction) {
+    public GroupModel setFraction(int mFraction) {
         this.mFraction = mFraction;
         return this;
     }
@@ -54,7 +57,7 @@ public class Group {
         return mCreatorId;
     }
 
-    public Group setCreatorId(int mCreatorId) {
+    public GroupModel setCreatorId(int mCreatorId) {
         this.mCreatorId = mCreatorId;
         return this;
     }
@@ -63,7 +66,7 @@ public class Group {
         return mCreatorNick;
     }
 
-    public Group setCreatorNick(String mCreatorNick) {
+    public GroupModel setCreatorNick(String mCreatorNick) {
         this.mCreatorNick = mCreatorNick;
         return this;
     }

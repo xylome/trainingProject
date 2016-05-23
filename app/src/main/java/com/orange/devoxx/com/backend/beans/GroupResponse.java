@@ -27,6 +27,10 @@ public class GroupResponse {
         }
     }
 
+    public void setGroups(ArrayList<Group> groups) {
+        mGroups = groups;
+    }
+
     public ArrayList<Group> getGroups() {
         return mGroups;
     }
