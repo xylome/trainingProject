@@ -2,113 +2,58 @@ package com.orange.devoxx.dao.group;
 
 import android.util.Log;
 
-import com.orange.devoxx.MyApplication;
-import com.orange.devoxx.com.backend.beans.Group;
+import com.orange.devoxx.com.backend.beans.GroupModel;
 import com.orange.devoxx.dao.DaoManager;
-import com.orange.devoxx.dao.model.GroupModel;
+import com.orm.SugarRecord;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hugo.weaving.DebugLog;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 /**
  * Created by xylome on 23/05/2016.
  */
 public class GroupDao implements GroupDaoIntf {
-
-    private static final String TAG = "GroupDao" ;
-    private RealmConfiguration mRealmConf;
-
+    private static final String TAG = "GroupDao " ;
 
     public GroupDao(DaoManager daoManager) {
-        if (mRealmConf == null) {
-            mRealmConf = new RealmConfiguration.Builder(MyApplication.instance.getApplicationContext())
-                    .deleteRealmIfMigrationNeeded()
-                    .build();
-        }
-    }
-
-    private Realm getRealmInstance() {
-        Realm realm = null;
-        try {
-             realm = Realm.getInstance(mRealmConf);
-        } catch (Exception e) {
-            Log.e(TAG, "<init> Realm said: " + e.getMessage());
-        }
-        return realm;
     }
 
     @DebugLog
     @Override
-    public void saveGroup(Group group) {
-        GroupModel gm = groupToGroupModel(group);
-
-        Realm realm = getRealmInstance();
-        if (realm == null) {
-            Log.e(TAG, "Realm was null");
-            return;
-        }
-        try {
-            realm.beginTransaction();
-            realm.copyToRealmOrUpdate(gm);
-            realm.commitTransaction();
-        } catch (Exception e) {
-            Log.e(TAG, "Realm said: " + e.getMessage());
-        }
+    public void saveGroup(GroupModel group) {
+        SugarRecord.save(group);
     }
 
     @Override
-    public void saveGroups(ArrayList<Group> groups) {
-        for(Group current: groups) {
+    public void saveGroups(ArrayList<GroupModel> groups) {
+        for(GroupModel current: groups) {
             saveGroup(current);
         }
-
     }
 
     @DebugLog
     @Override
-    public ArrayList<Group> getGroups() {
-        ArrayList<Group> result = new ArrayList<>();
-        Realm realm = getRealmInstance();
+    public ArrayList<GroupModel> getGroups() {
+        ArrayList<GroupModel> result = new ArrayList<>();
 
-        if (realm == null) {
-            Log.e(TAG, "Realm was null");
-            return null;
+        try {
+            List<GroupModel> resultList = SugarRecord.listAll(GroupModel.class);
+            result.addAll(resultList);
+        } catch (Exception e) {
+            Log.e(TAG, "ORM problem: " + e.getMessage());
         }
-        final RealmResults<GroupModel> realmResults = realm.where(GroupModel.class).findAll();
 
-        for(GroupModel current : realmResults) {
-            result.add(groupModelToGroup(current));
-        }
         return result;
     }
 
-    private GroupModel groupToGroupModel(Group group) {
-        GroupModel gm = new GroupModel()
-                .setId(group.getId())
-                .setCreatorId(group.getCreatorId())
-                .setName(group.getName())
-                .setCreatorNick(group.getCreatorNick())
-                .setCreatorId(group.getCreatorId())
-                .setFraction(group.getFraction())
-                ;
-        return gm;
+    public GroupModel findGroupById(int id) {
+        List<GroupModel> resultList = SugarRecord.find(GroupModel.class, "M_GROUP_ID = ?", id + "");
+        return resultList.get(0);
     }
 
-    private Group groupModelToGroup(GroupModel gm) {
-        Group group = new Group()
-                .setId(gm.getId())
-                .setCreatorId(gm.getCreatorId())
-                .setName(gm.getName())
-                .setCreatorNick(gm.getCreatorNick())
-                .setCreatorId(gm.getCreatorId())
-                .setFraction(gm.getFraction())
-                ;
-        return group;
+    public void deleteAll() {
+        SugarRecord.deleteAll(GroupModel.class);
     }
-
-
 }

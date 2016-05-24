@@ -1,13 +1,12 @@
 package com.orange.devoxx.dao.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+
 
 /**
  * Created by xylome on 02/05/2016.
  */
-public class LoginInfo extends RealmObject{
-    @PrimaryKey
+public class LoginInfo {
+
     private int id = 0;
     private String accountId;
     private String nick;

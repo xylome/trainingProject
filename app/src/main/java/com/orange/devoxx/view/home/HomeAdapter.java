@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.orange.devoxx.R;
-import com.orange.devoxx.com.backend.beans.Group;
+import com.orange.devoxx.com.backend.beans.GroupModel;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
-    private ArrayList<Group> mData;
+    private ArrayList<GroupModel> mData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -29,7 +29,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
 
-    public HomeAdapter(ArrayList<Group> groups) {
+    public HomeAdapter(ArrayList<GroupModel> groups) {
         mData = groups;
     }
 

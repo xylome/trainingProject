@@ -29,12 +29,12 @@ public class MockGroupService implements GroupServiceIntf {
     private void getGroupsSync() {
         //mGroupResponse = Injector.getDataCommunication().myGroups();
         Log.d(TAG, "group sync !!!!");
-        Log.d(TAG, "Group pas sync !!");
+        Log.d(TAG, "GroupModelDeprecated pas sync !!");
         mGroupResponse = new GroupResponse();
         Log.d(TAG, "after new GroupResponse()");
 
         Group tmp = new Group();
-        Log.d(TAG, "after new Group()");
+        Log.d(TAG, "after new GroupModelDeprecated()");
         tmp.setName("Mock1");
         Log.d(TAG, "after setname()");
 

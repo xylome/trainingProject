@@ -11,6 +11,8 @@ import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.injector.Injector;
 import com.orange.devoxx.service.ServiceManagerIntf;
 import com.orange.devoxx.view.login.LoginActivity;
+import com.orm.SugarContext;
+import com.orm.SugarRecord;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,6 +38,7 @@ public class MyApplication extends Application {
         instance = this;
         mUserInfos = null;
         Log.d(TAG, "Application created");
+        SugarContext.init(getApplicationContext());
     }
 
     public final ServiceManagerIntf getServiceManager() {
@@ -58,6 +61,7 @@ public class MyApplication extends Application {
 
     @Override
     public void onTerminate() {
+        SugarContext.terminate();
         super.onTerminate();
         Log.d(TAG, "Application terminated");
     }

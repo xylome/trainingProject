@@ -1,37 +1,41 @@
-package com.orange.devoxx.dao.model;
+package com.orange.devoxx.com.backend.beans;
 
 import com.google.gson.annotations.SerializedName;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
+import com.orm.dsl.Table;
+import com.orm.dsl.Unique;
 
 /**
  * Created by xylome on 17/05/2016.
  */
-public class GroupModel extends RealmObject {
-    @PrimaryKey
+@Table
+public class GroupModel {
+    @Unique
+    @SerializedName("group_id")
+    private long mGroupId;
 
-    private int mId;
-
-
+    @SerializedName("group_name")
     private String mName;
 
-
+    @SerializedName("group_fraction")
     private int mFraction;
 
-
+    @SerializedName("creator_id")
     private int mCreatorId;
 
-
+    @SerializedName("creator_nick")
     private String mCreatorNick;
 
-    public int getId() {
-        return mId;
+
+    public long getGroupId() {
+        return mGroupId;
     }
 
-    public GroupModel setId(int mId) {
-        this.mId = mId;
+    public long getId() {
+        return mGroupId;
+    }
+
+    public GroupModel setId(int id) {
+        this.mGroupId = id;
         return this;
     }
 

@@ -2,6 +2,7 @@ package com.orange.devoxx.service.login;
 
 import com.orange.devoxx.MyApplication;
 import com.orange.devoxx.com.backend.beans.LoginResponse;
+import com.orange.devoxx.dao.DaoManager;
 import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.event.LoginResponseEvent;
 import com.orange.devoxx.event.LogoutResponseEvent;
@@ -61,6 +62,7 @@ public class LoginService extends MotherService implements LoginServiceIntf{
         dm.writeNick(null);
         dm.writeLogged(false);
         dm = null;
+        DaoManager.getInstance().getGroupDao().deleteAll();
         postLogoutResponse();
     }
 

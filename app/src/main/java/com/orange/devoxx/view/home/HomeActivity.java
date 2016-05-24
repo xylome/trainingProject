@@ -14,18 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.orange.devoxx.R;
-import com.orange.devoxx.com.backend.beans.Group;
+import com.orange.devoxx.com.backend.beans.GroupModel;
 import com.orange.devoxx.com.backend.beans.GroupResponse;
 import com.orange.devoxx.data.DataManager;
 import com.orange.devoxx.view.BaseActivity;
 import com.orange.devoxx.view.login.LoginActivity;
 
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -41,7 +37,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeVie
     private Object mUserInfos;
     private RecyclerView.Adapter mGroupsRecyclerAdapter;
     private RecyclerView.LayoutManager mGroupsRecyclerLayoutManager;
-    private ArrayList<Group> mGroups;
+    private ArrayList<GroupModel> mGroups;
     Handler mainThread = new Handler(Looper.getMainLooper());
 
 

@@ -16,8 +16,6 @@ import hugo.weaving.DebugLog;
  * Created by xylome on 17/05/2016.
  */
 public class GroupService implements GroupServiceIntf {
-
-
     private static final String TAG = "GroupService";
     private GroupResponse mGroupResponse;
 
@@ -42,7 +40,6 @@ public class GroupService implements GroupServiceIntf {
     }
 
     private class GroupsRunnable implements Runnable {
-
         @Override
         public void run() {
             getGroupsSync();

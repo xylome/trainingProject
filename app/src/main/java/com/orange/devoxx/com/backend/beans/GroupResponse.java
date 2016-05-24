@@ -4,14 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 /**
  * Created by xylome on 17/05/2016.
  */
 public class GroupResponse {
     @SerializedName("data")
-    private ArrayList<Group> mGroups;
+    private ArrayList<GroupModel> mGroups;
 
     public GroupResponse() {
         mGroups = new ArrayList<>();
@@ -21,17 +19,17 @@ public class GroupResponse {
         return mGroups.size();
     }
 
-    public void addGroup(Group g) {
+    public void addGroup(GroupModel g) {
         if (null != g) {
             mGroups.add(g);
         }
     }
 
-    public void setGroups(ArrayList<Group> groups) {
+    public void setGroups(ArrayList<GroupModel> groups) {
         mGroups = groups;
     }
 
-    public ArrayList<Group> getGroups() {
+    public ArrayList<GroupModel> getGroups() {
         return mGroups;
     }
 }
