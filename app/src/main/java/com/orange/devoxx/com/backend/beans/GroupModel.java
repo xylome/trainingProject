@@ -34,7 +34,7 @@ public class GroupModel {
         return mGroupId;
     }
 
-    public GroupModel setId(int id) {
+    public GroupModel setId(long id) {
         this.mGroupId = id;
         return this;
     }

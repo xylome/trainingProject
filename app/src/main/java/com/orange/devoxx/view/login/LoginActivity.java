@@ -197,7 +197,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     public static Intent getIntent(Context c) {
         Intent i =  new Intent(c, LoginActivity.class);
-        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        return i;
+    }
+
+    public static Intent getIntent(Context c, String foo) {
+        Intent i = new Intent(c, LoginActivity.class);
+        i.putExtra("FOO", foo);
         return i;
     }
 
